@@ -54,14 +54,8 @@
             <!-- <HINT> Use Bootstrap Collapse to hide exam first, more details could be found here
             https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->
 
-            <!--
-
-            A collapse example here:
-            <div id="exam" class="collapse">
-                Click to expand elements within the collapse div
-                </div>
-
-            -->
+           
+           
 
             <!-- <HINT> If user is authenticated, show course exam with a list of question -->
 
@@ -75,13 +69,28 @@
             <input type="check" name="choice_{{choice.id}}" id="{{choice.id}}" ...>
             -->
 
-            <!-- A choice submission form example
+             { % if user.is_authenticated %}
+             <br>
+             <center>
+             <button class='btn btn-primary' data-toggle="collapse"  
+             data-target="#exam">Show/hide questios </button></center>
+        
+             <br>
+         
+
+            
             <form id="questionform" action="point to a submit view" method="post">
                         ... for each question in the course ...
+                        <div id = "#exam" class = "collapse show">
+                        <div class ="card-colmn-vertical">
+                           
+                            {% for question in course.question_set.all%}
+
                         <div class="card mt-1">
                             <div class="card-header"><h5>{{ question.question_text}}</h5></div>
                             {% csrf_token %}
                             <div class="form-group">
+                               {% for choice in question.choice_set.all %}
                                ... for each choice in the question ...
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -93,7 +102,7 @@
                             </div>
                         </div>
                     <input class="btn btn-success btn-block" type="submit" value="Submit">
-            </form> -->
+            </form> 
 
             <!--Check here to see more details Bootstrap checkbox
              https://www.w3schools.com/bootstrap4/bootstrap_forms_inputs.asp-->
